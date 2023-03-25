@@ -1819,6 +1819,9 @@
         AMADAACAAQAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAEAAMABAADgAQAA8AEAAPw/AAD8PwAA
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>285, 17</value>
+  </metadata>
   <data name="btn_Meeting.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABS
@@ -2384,13 +2387,10 @@
         cRTObgRW2UD2lzPEHWAADM+l8m7ZSdznGpA9bvX/AWqMOq3/r5bLAAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>285, 17</value>
-  </metadata>
   <data name="btn_Break.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABS
-        CAABFVgAADqXAAAXb9daH5AAAAAJcEhZcwAA69IAAOvSAaKNwbEAAEsDSURBVHhe7d13vG1Fff7xAAIK
+        CAABFVgAADqXAAAXb9daH5AAAAAJcEhZcwAA684AAOvOATDuXgwAAEsDSURBVHhe7d13vG1Fff7xAAIK
         iKKiqKgo9oIlttgl9oKxYAELKCqWYEkXY8FeojFGjTXWaOyKvRCxC9KsP0VBQA0oUlQQC+b3eW7uvdl3
         n+eue8ree2bWPH+8Xy/usOec9Z01+7u+Z++1Zv5kux33iYj6XRRXxF7YG/viYByKl+EteC8OxyfxOXwF
         x+BbOBGn4HScjfPwh/X032rT/9Nr9Fr1UV/9DP0s/Uz9bP0O/S79Tv1uHYOORcd0Q+yOi8HFEBEVsY0R
@@ -2718,6 +2718,18 @@
     <value>382, 17</value>
   </metadata>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="StartTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="EndTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Activity.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
