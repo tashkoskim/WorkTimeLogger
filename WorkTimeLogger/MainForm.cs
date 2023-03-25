@@ -10,7 +10,6 @@ namespace WorkTimeLogger
 {
     public partial class MainForm : Form
     {
-        private NotifyIcon _notifyIcon;
         private Image defaultImage_Coding = null;
         private Image defaultImage_Meeting = null;
         private Image defaultImage_Break = null;
@@ -28,7 +27,7 @@ namespace WorkTimeLogger
 
             DefineBtnBackgrounds();
 
-            this.Size = new Size(400, 30);
+            this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
             RepositionTheForm();
 
         }
@@ -48,8 +47,18 @@ namespace WorkTimeLogger
             {
                 PopulateDataGridView();
                 CsvRecord lastRecord = GeneralConstants.listRecords.Last();
-                activity = lastRecord.Activity;
+                if(lastRecord.EndTime == "-")
+                {
+                    activity = lastRecord.Activity;
+                    
+                }
+                else
+                {
+                    activity = "";
+                }
                 setHeader(lastRecord);
+
+                setTotalHrs();
             }
 
             HeaderGradientBackground(activity);
@@ -61,10 +70,11 @@ namespace WorkTimeLogger
             comboBox1.Select();
             if (isMaximized==false)
             {
-                this.Size = new Size(461, 187);
+                this.Size = new Size(GeneralConstants.widthBig, GeneralConstants.heightBig);
                 RepositionTheForm();
                 dataGridView_History.CurrentCell = null;
                 comboBox1.Select();
+                setTotalHrs();
             }
         }
 
@@ -75,7 +85,21 @@ namespace WorkTimeLogger
             {
                 header = header.Substring(0,60)+"...";
             }
+            if(r.EndTime != "-")
+            {
+                header = "Today's log is finished!";
+            }
             lblHeader.Text = header;
+        }
+
+        private void setTotalHrs()
+        {
+            List<decimal> totalHrs = CsvFileCreator.GetTotalHrs();
+            if(totalHrs.Count > 0)
+            {
+                groupBox_Total.Text = $"Total: {totalHrs.Sum()}";
+                lblHrs.Text = $"Coding: {totalHrs[0]}, Meeting: {totalHrs[1]}, Break: {totalHrs[2]}";
+            }
         }
 
         private void MainForm_MouseLeave(object sender, EventArgs e)
@@ -84,7 +108,7 @@ namespace WorkTimeLogger
             {
                 if (!this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition)))
                 {
-                    this.Size = new Size(400, 30);
+                    this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
                     RepositionTheForm();
                 }
             }
@@ -110,6 +134,7 @@ namespace WorkTimeLogger
             BringToFront();
             Activate();
             this.Show();
+            setTotalHrs();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -127,6 +152,7 @@ namespace WorkTimeLogger
             BringToFront();
             Activate();
             this.Show();
+            setTotalHrs();
         }
 
         private void btn_Minimize_Click(object sender, EventArgs e)
@@ -137,6 +163,11 @@ namespace WorkTimeLogger
             dataGridView_History.CurrentCell = null;
         }
 
+        private void hideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btn_Minimize_Click(sender, e);
+        }
+
         private void btn_Maximize_Click(object sender, EventArgs e)
         {
             comboBox1.Select();
@@ -144,17 +175,18 @@ namespace WorkTimeLogger
             if (isMaximized == false)
             {
                 isMaximized = true;
-                this.Size = new Size(461, 187);
+                this.Size = new Size(GeneralConstants.widthBig, GeneralConstants.heightBig);
                 RepositionTheForm();
                 btn_Maximize.Text = "[ ]";
             }
             else
             {
                 isMaximized = false;
-                this.Size = new Size(400, 30);
+                this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
                 RepositionTheForm();
                 btn_Maximize.Text = "[]";
             }
+            setTotalHrs();
         }
 
         private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
@@ -231,11 +263,12 @@ namespace WorkTimeLogger
             if (ValidateComboBox())
             {
                 comboBox1.Select();
-                CsvFileCreator.InsertCsvRow(comboBox1.Text, activity, false);
+                CsvFileCreator.InsertCsvRow(comboBox1.Text, activity, 0);
                 CsvRecord lastRecord = GeneralConstants.listRecords.Last();
                 setHeader(lastRecord);
                 HeaderGradientBackground(activity);
                 PopulateDataGridView();
+                setTotalHrs();
             }
         }
 
@@ -245,11 +278,12 @@ namespace WorkTimeLogger
             if (ValidateComboBox())
             {
                 comboBox1.Select();
-                CsvFileCreator.InsertCsvRow(comboBox1.Text, activity, false);
+                CsvFileCreator.InsertCsvRow(comboBox1.Text, activity, 0);
                 CsvRecord lastRecord = GeneralConstants.listRecords.Last();
                 setHeader(lastRecord);
                 HeaderGradientBackground(activity);
                 PopulateDataGridView();
+                setTotalHrs();
             } 
         }
 
@@ -257,11 +291,12 @@ namespace WorkTimeLogger
         {
             string activity = "Break";
             comboBox1.Select();
-            CsvFileCreator.InsertCsvRow(activity, activity, false);
+            CsvFileCreator.InsertCsvRow(activity, activity, 0);
             CsvRecord lastRecord = GeneralConstants.listRecords.Last();
             setHeader(lastRecord);
             HeaderGradientBackground(activity);
             PopulateDataGridView();
+            setTotalHrs();
         }
 
 
@@ -296,7 +331,6 @@ namespace WorkTimeLogger
 
         private void HeaderGradientBackground(string mode)
         {
-            
             // Create a new ColorBlend object
             ColorBlend colorBlend = new ColorBlend();
             colorBlend.Positions = new float[] { 0, 0.5f, 1 };
@@ -457,7 +491,7 @@ namespace WorkTimeLogger
                 string newValue = dataGridView_History.Rows[rowIndex].Cells[columnIndex].Value.ToString();
                 GeneralConstants.listRecords[rowIndex].Description = newValue;
                 comboBox1.Select();
-                CsvFileCreator.InsertCsvRow(newValue, GeneralConstants.listRecords[rowIndex].Activity, true);                
+                CsvFileCreator.InsertCsvRow(newValue, GeneralConstants.listRecords[rowIndex].Activity, 1);                
                 PopulateDataGridView();
                 if(rowIndex == GeneralConstants.listRecords.Count-1)
                 {
@@ -468,12 +502,21 @@ namespace WorkTimeLogger
 
         private void finishForTodayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("test");
             if(GeneralConstants.listRecords != null)
             {
                 if(GeneralConstants.listRecords.Count > 0)
                 {
+                    DialogResult result = MessageBox.Show("Are you sure you want to close today's log file?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
+                    if (result == DialogResult.Yes)
+                    {
+                        comboBox1.Select();
+                        CsvRecord lastRecord = GeneralConstants.listRecords.Last();
+
+                        CsvFileCreator.InsertCsvRow(lastRecord.Description, lastRecord.Activity, 2);
+
+                        Application.Exit();
+                    }
                 }
             }
         }
@@ -481,7 +524,10 @@ namespace WorkTimeLogger
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
             dataGridView_History.CurrentCell = null;
+            setTotalHrs();
         }
+
+        
 
         //private void dataGridView_History_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         //{

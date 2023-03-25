@@ -9,8 +9,15 @@ namespace WorkTimeLogger.Constants
 {
     public static class GeneralConstants
     {
+        public static int widthBig = 460;
+        public static int heightBig = 200;
+
+        public static int widthSmall = 400;
+        public static int heightSmall = 30;
+
         public static string logsFolder = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Logs");
         public static string templateFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "template.json");
+        
         public static string bckgrImg_btnMeeting1 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Meeting1.png";
         public static string bckgrImg_btnMeeting2 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Meeting2.png";
         public static string bckgrImg_btnCoding1 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Coding1.png";

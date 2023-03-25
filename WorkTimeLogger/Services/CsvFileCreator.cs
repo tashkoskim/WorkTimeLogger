@@ -49,7 +49,7 @@ namespace WorkTimeLogger.Services
             return lastRow;
         }
 
-        public static void InsertCsvRow(string description, string activityType, bool edit)
+        public static void InsertCsvRow(string description, string activityType, int edit)
         {
             string csvFilePath = GetCsvFilePath();
 
@@ -62,8 +62,9 @@ namespace WorkTimeLogger.Services
                 Description = description
             };
 
-            if(edit == false)
+            if(edit == 0)
             {
+                // The first time when the file is created
                 if (GeneralConstants.listRecords == null)
                 {
                     // Just insert the row in the list
@@ -78,8 +79,11 @@ namespace WorkTimeLogger.Services
                     if (DateTime.TryParseExact(lastRecord.StartTime, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startTime) &&
             DateTime.TryParseExact(DateTime.Now.ToString("HH:mm"), "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime endTime))
                     {
-                        lastRecord.EndTime = endTime.ToString("HH:mm");
-                        lastRecord.Duration = CalculateDuration(startTime, endTime);
+                        if(lastRecord.EndTime == "-")
+                        {
+                            lastRecord.EndTime = endTime.ToString("HH:mm");
+                            lastRecord.Duration = CalculateDuration(startTime, endTime);
+                        }
                         // Add the new record
                         GeneralConstants.listRecords.Add(record);
                         WriteCsvRow(csvFilePath);
@@ -87,9 +91,23 @@ namespace WorkTimeLogger.Services
                     }
 
                 }
-            }else
+            }else if(edit == 1)
             {
+                // Edit description
                 WriteCsvRow(csvFilePath);
+            }else if(edit == 2)
+            {
+                // Close the today's log
+                CsvRecord lastRecord = GeneralConstants.listRecords.Last();
+                // If there are other records already, first you must close the previous event
+                if (DateTime.TryParseExact(lastRecord.StartTime, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startTime) &&
+        DateTime.TryParseExact(DateTime.Now.ToString("HH:mm"), "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime endTime))
+                {
+                    lastRecord.EndTime = endTime.ToString("HH:mm");
+                    lastRecord.Duration = CalculateDuration(startTime, endTime);                   
+                    WriteCsvRow(csvFilePath);
+
+                }
             }
 
         }
@@ -108,6 +126,58 @@ namespace WorkTimeLogger.Services
                 }
                 
             }
+        }
+
+        public static List<decimal> GetTotalHrs()
+        {
+            // coding, meeting, break
+            List<decimal> totalHrs = new List<decimal> { 0.0m, 0.0m, 0.0m };
+
+            if (GeneralConstants.listRecords != null)
+            {
+                foreach (CsvRecord r in GeneralConstants.listRecords)
+                {
+                    if (r.EndTime != "-")
+                    {
+                        if (r.Activity == "Coding")
+                        {
+                            totalHrs[0] += (decimal)r.Duration;
+                        }
+                        else if (r.Activity == "Meeting")
+                        {
+                            totalHrs[1] += (decimal)r.Duration;
+                        }
+                        else if (r.Activity == "Break")
+                        {
+                            totalHrs[2] += (decimal)r.Duration;
+                        }
+                    }
+                    else
+                    {
+                        if (DateTime.TryParseExact(r.StartTime, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startTime) &&
+                DateTime.TryParseExact(DateTime.Now.ToString("HH:mm"), "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime endTime))
+                        {
+
+                            decimal pomDuration = CalculateDuration(startTime, endTime);
+
+                            if (r.Activity == "Coding")
+                            {
+                                totalHrs[0] += pomDuration;
+                            }
+                            else if (r.Activity == "Meeting")
+                            {
+                                totalHrs[1] += pomDuration;
+                            }
+                            else if (r.Activity == "Break")
+                            {
+                                totalHrs[2] += pomDuration;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return totalHrs;
         }
 
         private static decimal CalculateDuration(DateTime startTime, DateTime endTime)

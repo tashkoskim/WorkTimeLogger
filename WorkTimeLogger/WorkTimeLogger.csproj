@@ -33,12 +33,6 @@
     <None Update="Images\btn_Coding2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Images\btn_Continue1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Images\btn_Continue2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Images\btn_Pause1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
