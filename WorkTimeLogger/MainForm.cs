@@ -516,6 +516,9 @@ namespace WorkTimeLogger
                     }
                 }
             }
+
+            // Reattach the CellEndEdit event handler
+            dataGridView_History.CellEndEdit += dataGridView_History_CellEndEdit;
         }
 
         private void finishForTodayToolStripMenuItem_Click(object sender, EventArgs e)
