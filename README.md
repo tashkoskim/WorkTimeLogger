@@ -49,7 +49,7 @@ Screenshot of context menu strip (if you right click with the mouse on the icon)
 ![Menu](https://github.com/tashkoskim/WorkTimeLogger/blob/master/WorkTimeLogger/Screenshots/WorkTimeLogger_ContextMenuStrip.JPG?raw=true)  
 
 ### GIF demo of the application
-In this demo you can see how to add new recording, how to mouse hover on the application works and how the whole design look:  
+In this demo you can see the whole process of how to add new record (coding, meeting or break), how the mouse hover the application works and how the whole design look:  
 ![WorkTimeLogger](https://github.com/tashkoskim/WorkTimeLogger/blob/master/WorkTimeLogger/Screenshots/WorkTimeLogger.gif?raw=true) 
 
 
