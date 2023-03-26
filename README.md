@@ -7,7 +7,8 @@ This windows forms application is created as a help tool for logging time at wor
 - Meetings 
 - Breaks  
 
-Also there are some predefined descriptions that appear in a comboBox and the user can choose instead of typing. You can easily copy a description just with clicking on it, and paste it somewhere else.
+Also there are some predefined descriptions that appear in a comboBox and the user can choose instead of typing. You can easily copy a description just with clicking on it, and paste it somewhere else.  
+In order not to manually run the application every day, it would be best to create a shortcut from the exe and put it in the startup folder.
 
 ## The application
 The application was developed in *.NET Framework 6.0* (C#) as a *windows forms application*. 
