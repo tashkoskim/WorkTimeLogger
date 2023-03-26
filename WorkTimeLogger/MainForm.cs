@@ -45,25 +45,30 @@ namespace WorkTimeLogger
             GeneralConstants.listRecords = CsvFileCreator.CreateCsvFile();
             if(GeneralConstants.listRecords != null)
             {
-                PopulateDataGridView();
-                CsvRecord lastRecord = GeneralConstants.listRecords.Last();
-                if(lastRecord.EndTime == "-")
+                if(GeneralConstants.listRecords.Count > 0)
                 {
-                    activity = lastRecord.Activity;
-                    
-                }
-                else
-                {
-                    activity = "";
-                }
-                setHeader(lastRecord);
+                    PopulateDataGridView();
+                    CsvRecord lastRecord = GeneralConstants.listRecords.Last();
+                    if (lastRecord.EndTime == "-")
+                    {
+                        activity = lastRecord.Activity;
 
-                setTotalHrs();
+                    }
+                    else
+                    {
+                        activity = "";
+                    }
+                    setHeader(lastRecord);
+
+                    setTotalHrs();
+                }
             }
 
             HeaderGradientBackground(activity);
         }
 
+        // The panel that is shown befor you show with the mouse on it
+        // On mouse enter resize the form
         private void panelHeader_MouseEnter(object sender, EventArgs e)
         {
             comboBox1.Focus();
@@ -78,6 +83,7 @@ namespace WorkTimeLogger
             }
         }
 
+        // The header text shown in the header panel
         private void setHeader(CsvRecord r)
         {
             string header = $"{r.StartTime} {r.Description}";
@@ -92,6 +98,7 @@ namespace WorkTimeLogger
             lblHeader.Text = header;
         }
 
+        // Total calculated hours for the current day
         private void setTotalHrs()
         {
             List<decimal> totalHrs = CsvFileCreator.GetTotalHrs();
@@ -102,6 +109,7 @@ namespace WorkTimeLogger
             }
         }
 
+        // When mouse leaves the form resize it back to the small header panel
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
             if(isMaximized == false)
@@ -114,16 +122,16 @@ namespace WorkTimeLogger
             }
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        // Prevent the user click on the X button or Alt+F4
+        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            // Prevent the form from being minimized
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (e.CloseReason == CloseReason.UserClosing && (Control.ModifierKeys & Keys.Alt) == Keys.Alt)
             {
                 e.Cancel = true;
-                this.WindowState = FormWindowState.Normal;
             }
         }
 
+        // The menu strip buttons that are showing when the user click right mouse click on the icon
         private void showToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
@@ -137,11 +145,13 @@ namespace WorkTimeLogger
             setTotalHrs();
         }
 
+        // Exit the app, when you run again the app will continue from the last state
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        // When you double click on the icon - show the app
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
@@ -155,6 +165,7 @@ namespace WorkTimeLogger
             setTotalHrs();
         }
 
+        // Hide the form by clicking the '-' button
         private void btn_Minimize_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -163,11 +174,13 @@ namespace WorkTimeLogger
             dataGridView_History.CurrentCell = null;
         }
 
+        // Hide the form by clicking the menu strip button 'Hide'
         private void hideToolStripMenuItem_Click(object sender, EventArgs e)
         {
             btn_Minimize_Click(sender, e);
         }
 
+        // The form will stay open
         private void btn_Maximize_Click(object sender, EventArgs e)
         {
             comboBox1.Select();
@@ -189,29 +202,23 @@ namespace WorkTimeLogger
             setTotalHrs();
         }
 
-        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing && (Control.ModifierKeys & Keys.Alt) == Keys.Alt)
-            {
-                e.Cancel = true;
-            }
-        }
-
+        // Open the folder with all csv log files
         private void openFileLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", Path.Combine(GeneralConstants.logsFolder, DateTime.Now.Year.ToString(), DateTime.Now.ToString("MM")));
         }
 
+        // Button for coding - on mouse over
         private void btn_Coding_MouseEnter(object sender, EventArgs e)
         {
             if (hoverImage_Coding != null)
             {
                 defaultImage_Coding = btn_Coding.BackgroundImage;
                 btn_Coding.BackgroundImage = hoverImage_Coding;
-                dataGridView_History.CurrentCell = null;
             }
         }
 
+        // Button for coding - on mouse leave
         private void btn_Coding_MouseLeave(object sender, EventArgs e)
         {
             if (defaultImage_Coding != null)
@@ -220,16 +227,17 @@ namespace WorkTimeLogger
             }
         }
 
+        // Button for meeting - on mouse over
         private void btn_Meeting_MouseEnter(object sender, EventArgs e)
         {
             if (hoverImage_Meeting != null)
             {
                 defaultImage_Meeting = btn_Meeting.BackgroundImage;
                 btn_Meeting.BackgroundImage = hoverImage_Meeting;
-                dataGridView_History.CurrentCell = null;
             }
         }
 
+        // Button for meeting - on mouse leave
         private void btn_Meeting_MouseLeave(object sender, EventArgs e)
         {
             if (defaultImage_Meeting != null)
@@ -238,16 +246,17 @@ namespace WorkTimeLogger
             }
         }
 
+        // Button for break - on mouse over
         private void btn_Break_MouseEnter(object sender, EventArgs e)
         {
             if (hoverImage_Break != null)
             {
                 defaultImage_Break = btn_Break.BackgroundImage;
                 btn_Break.BackgroundImage = hoverImage_Break;
-                dataGridView_History.CurrentCell = null;
             }
         }
 
+        // Button for break - on mouse leave
         private void btn_Break_MouseLeave(object sender, EventArgs e)
         {
             if (defaultImage_Break != null)
@@ -256,6 +265,7 @@ namespace WorkTimeLogger
             }
         }
 
+        // When you click on the meeting button...
         private void btn_Meeting_Click(object sender, EventArgs e)
         {
             string activity = "Meeting";
@@ -269,9 +279,13 @@ namespace WorkTimeLogger
                 HeaderGradientBackground(activity);
                 PopulateDataGridView();
                 setTotalHrs();
+                dataGridView_History.CurrentCell = null;
             }
+            comboBox1.Focus();
+            comboBox1.Select();
         }
 
+        // When you click on the coding button...
         private void btn_Coding_Click(object sender, EventArgs e)
         {
             string activity = "Coding";
@@ -284,12 +298,18 @@ namespace WorkTimeLogger
                 HeaderGradientBackground(activity);
                 PopulateDataGridView();
                 setTotalHrs();
-            } 
+                dataGridView_History.CurrentCell = null;
+            }
+            comboBox1.Focus();
+            comboBox1.Select();
         }
 
+        // When you click on the break button...
         private void btn_Break_Click(object sender, EventArgs e)
         {
+            // Validation for empty combobox here is not needed
             string activity = "Break";
+            comboBox1.Focus();
             comboBox1.Select();
             CsvFileCreator.InsertCsvRow(activity, activity, 0);
             CsvRecord lastRecord = GeneralConstants.listRecords.Last();
@@ -297,17 +317,10 @@ namespace WorkTimeLogger
             HeaderGradientBackground(activity);
             PopulateDataGridView();
             setTotalHrs();
+            dataGridView_History.CurrentCell = null;
         }
 
-
-        //private void MainForm_Resize(object sender, EventArgs e)
-        //{
-        //    if (WindowState == FormWindowState.Minimized)
-        //    {
-        //        WindowState = FormWindowState.Normal;
-        //    }
-        //}
-
+        // Combobox validation
         private bool ValidateComboBox()
         {
             if (comboBox1.SelectedItem == null && string.IsNullOrEmpty(comboBox1.Text))
@@ -322,6 +335,7 @@ namespace WorkTimeLogger
             return true;
         }
 
+        // Reposition the form
         private void RepositionTheForm()
         {
             int x = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
@@ -329,6 +343,7 @@ namespace WorkTimeLogger
             this.Location = new Point(x, y);
         }
 
+        // Change the backgroung of the header panel, according the action: coding, meeting, break
         private void HeaderGradientBackground(string mode)
         {
             // Create a new ColorBlend object
@@ -489,13 +504,16 @@ namespace WorkTimeLogger
             if (columnIndex == 3) // description column
             {
                 string newValue = dataGridView_History.Rows[rowIndex].Cells[columnIndex].Value.ToString();
-                GeneralConstants.listRecords[rowIndex].Description = newValue;
-                comboBox1.Select();
-                CsvFileCreator.InsertCsvRow(newValue, GeneralConstants.listRecords[rowIndex].Activity, 1);                
-                PopulateDataGridView();
-                if(rowIndex == GeneralConstants.listRecords.Count-1)
+                if(newValue != GeneralConstants.listRecords[rowIndex].Description)
                 {
-                    setHeader(GeneralConstants.listRecords[rowIndex]);
+                    GeneralConstants.listRecords[rowIndex].Description = newValue;
+                    comboBox1.Select();
+                    CsvFileCreator.InsertCsvRow(newValue, GeneralConstants.listRecords[rowIndex].Activity, 1);
+                    //PopulateDataGridView();
+                    if (rowIndex == GeneralConstants.listRecords.Count - 1)
+                    {
+                        setHeader(GeneralConstants.listRecords[rowIndex]);
+                    }
                 }
             }
         }
@@ -517,28 +535,20 @@ namespace WorkTimeLogger
 
                         Application.Exit();
                     }
+                }else
+                {
+                    MessageBox.Show("You don't have any records!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
 
+        // When you click on the form, make a disselection of the selected row and calculate the total hours
         private void MainForm_MouseClick(object sender, MouseEventArgs e)
         {
             dataGridView_History.CurrentCell = null;
             setTotalHrs();
         }
 
-        
 
-        //private void dataGridView_History_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        //{
-        //    if (dataGridView_History.Rows[e.RowIndex].Selected)
-        //    {
-        //        e.CellStyle.SelectionForeColor = Color.Azure;
-        //    }
-        //    else
-        //    {
-        //        e.CellStyle.SelectionForeColor = e.CellStyle.ForeColor;
-        //    }
-        //}
     }
 }

@@ -65,14 +65,14 @@ namespace WorkTimeLogger.Services
             if(edit == 0)
             {
                 // The first time when the file is created
-                if (GeneralConstants.listRecords == null)
+                if (GeneralConstants.listRecords == null || GeneralConstants.listRecords.Count == 0)
                 {
                     // Just insert the row in the list
                     GeneralConstants.listRecords = new List<CsvRecord>();
                     GeneralConstants.listRecords.Add(record);
                     WriteCsvRow(csvFilePath);
                 }
-                else if (GeneralConstants.listRecords.Count >= 0)
+                else if (GeneralConstants.listRecords.Count > 0)
                 {
                     CsvRecord lastRecord = GeneralConstants.listRecords.Last();
                     // If there are other records already, first you must close the previous event
