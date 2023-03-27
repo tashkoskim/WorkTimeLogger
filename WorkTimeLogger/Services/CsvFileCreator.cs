@@ -20,7 +20,7 @@ namespace WorkTimeLogger.Services
                 // Creates a new csv file
                 using (StreamWriter writer = new StreamWriter(csvFileName))
                 {
-                    writer.WriteLine("StartTime,EndTime,Duration,Activity,Description");
+                    writer.WriteLine("StartTime,EndTime,Duration,Date,Activity,Description");
                 }
             }else
             {
@@ -58,6 +58,7 @@ namespace WorkTimeLogger.Services
                 StartTime = DateTime.Now.ToString("HH:mm"),
                 EndTime = "-",
                 Duration = 0,
+                Date = DateTime.Now.Date.ToString("dd.MM.yyyy"),
                 Activity = activityType,
                 Description = description
             };
@@ -117,10 +118,10 @@ namespace WorkTimeLogger.Services
             // Write the rows to the CSV file
             using (StreamWriter sw = new StreamWriter(csvPath))
             {
-                sw.WriteLine("StartTime,EndTime,Duration,Activity,Description");
+                sw.WriteLine("StartTime,EndTime,Duration,Date,Activity,Description");
                 foreach (CsvRecord r in GeneralConstants.listRecords)
                 {
-                    string row = r.StartTime + "," + r.EndTime + "," + r.Duration.ToString().Replace(",",".") + "," + r.Activity + "," + r.Description.Replace(","," ");
+                    string row = r.StartTime + "," + r.EndTime + "," + r.Duration.ToString().Replace(",",".") + "," + r.Date + "," + r.Activity + "," + r.Description.Replace(","," ");
 
                     sw.WriteLine(row);
                 }
@@ -208,8 +209,9 @@ namespace WorkTimeLogger.Services
                                     StartTime = fields[0],
                                     EndTime = fields[1],
                                     Duration = Decimal.Parse(fields[2].Replace(".",",")),
-                                    Activity = fields[3],
-                                    Description = fields[4]
+                                    Date = fields[3],
+                                    Activity = fields[4],
+                                    Description = fields[5]
                                 };
                                 records.Add(record);
                             }

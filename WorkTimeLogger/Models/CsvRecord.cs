@@ -11,6 +11,7 @@ namespace WorkTimeLogger.Models
         public string? StartTime { get; set; }
         public string? EndTime { get; set; }
         public decimal? Duration { get; set; }
+        public string? Date { get; set; }
         public string? Activity { get; set; }
         public string? Description { get; set; }
     }

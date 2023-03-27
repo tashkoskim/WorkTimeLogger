@@ -269,18 +269,23 @@ namespace WorkTimeLogger
         private void btn_Meeting_Click(object sender, EventArgs e)
         {
             string activity = "Meeting";
-
-            if (ValidateComboBox())
+            string description = "Meeting";
+            if (!string.IsNullOrEmpty(comboBox1.Text))
             {
-                comboBox1.Select();
-                CsvFileCreator.InsertCsvRow(comboBox1.Text, activity, 0);
-                CsvRecord lastRecord = GeneralConstants.listRecords.Last();
-                setHeader(lastRecord);
-                HeaderGradientBackground(activity);
-                PopulateDataGridView();
-                setTotalHrs();
-                dataGridView_History.CurrentCell = null;
+                description = comboBox1.Text;
             }
+            //if (ValidateComboBox())
+            //{
+            comboBox1.Select();
+            CsvFileCreator.InsertCsvRow(description, activity, 0);
+            CsvRecord lastRecord = GeneralConstants.listRecords.Last();
+            setHeader(lastRecord);
+            HeaderGradientBackground(activity);
+            PopulateDataGridView();
+            setTotalHrs();
+            dataGridView_History.CurrentCell = null;
+            //}
+            comboBox1.Text = "";
             comboBox1.Focus();
             comboBox1.Select();
         }
@@ -289,17 +294,23 @@ namespace WorkTimeLogger
         private void btn_Coding_Click(object sender, EventArgs e)
         {
             string activity = "Coding";
-            if (ValidateComboBox())
+            string description = "Coding";
+            if(!string.IsNullOrEmpty(comboBox1.Text))
             {
-                comboBox1.Select();
-                CsvFileCreator.InsertCsvRow(comboBox1.Text, activity, 0);
-                CsvRecord lastRecord = GeneralConstants.listRecords.Last();
-                setHeader(lastRecord);
-                HeaderGradientBackground(activity);
-                PopulateDataGridView();
-                setTotalHrs();
-                dataGridView_History.CurrentCell = null;
+                description = comboBox1.Text;
             }
+            //if (ValidateComboBox())
+            //{
+            comboBox1.Select();
+            CsvFileCreator.InsertCsvRow(description, activity, 0);
+            CsvRecord lastRecord = GeneralConstants.listRecords.Last();
+            setHeader(lastRecord);
+            HeaderGradientBackground(activity);
+            PopulateDataGridView();
+            setTotalHrs();
+            dataGridView_History.CurrentCell = null;
+            //}
+            comboBox1.Text = "";
             comboBox1.Focus();
             comboBox1.Select();
         }
@@ -309,6 +320,7 @@ namespace WorkTimeLogger
         {
             // Validation for empty combobox here is not needed
             string activity = "Break";
+            comboBox1.Text = "";
             comboBox1.Focus();
             comboBox1.Select();
             CsvFileCreator.InsertCsvRow(activity, activity, 0);
@@ -320,7 +332,8 @@ namespace WorkTimeLogger
             dataGridView_History.CurrentCell = null;
         }
 
-        // Combobox validation
+        // Combobox validation - I will not use this, because I though that is better to 
+        // inser a record without any text, I will use default text instead such Coding, Meeting (similar to Break)
         private bool ValidateComboBox()
         {
             if (comboBox1.SelectedItem == null && string.IsNullOrEmpty(comboBox1.Text))
