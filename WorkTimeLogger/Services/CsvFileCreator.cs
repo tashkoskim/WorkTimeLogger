@@ -202,7 +202,7 @@ namespace WorkTimeLogger.Services
                         if(no>0)
                         {
                             string[] fields = line.Split(',');
-                            if (fields.Length == 5)
+                            if (fields.Length == 6)
                             {
                                 CsvRecord record = new CsvRecord()
                                 {
