@@ -57,11 +57,13 @@
             this.EndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Activity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.contextMenuStrip1.SuspendLayout();
             this.panelHeader.SuspendLayout();
             this.groupBox_Total.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_History)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -85,7 +87,7 @@
             this.finishForTodayToolStripMenuItem,
             this.toolStripSeparator2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 148);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(183, 126);
             // 
             // showToolStripMenuItem
             // 
@@ -144,11 +146,15 @@
             this.panelHeader.Controls.Add(this.lblHeader);
             this.panelHeader.Controls.Add(this.btn_Maximize);
             this.panelHeader.Controls.Add(this.btn_Minimize);
+            this.panelHeader.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.panelHeader.Location = new System.Drawing.Point(2, 2);
             this.panelHeader.Name = "panelHeader";
             this.panelHeader.Size = new System.Drawing.Size(457, 30);
             this.panelHeader.TabIndex = 0;
+            this.panelHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
             this.panelHeader.MouseEnter += new System.EventHandler(this.panelHeader_MouseEnter);
+            this.panelHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseMove);
+            this.panelHeader.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseUp);
             // 
             // lblHeader
             // 
@@ -160,7 +166,10 @@
             this.lblHeader.Size = new System.Drawing.Size(41, 15);
             this.lblHeader.TabIndex = 0;
             this.lblHeader.Text = "--:--  /";
+            this.lblHeader.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseDown);
             this.lblHeader.MouseEnter += new System.EventHandler(this.panelHeader_MouseEnter);
+            this.lblHeader.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseMove);
+            this.lblHeader.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panelHeader_MouseUp);
             // 
             // btn_Maximize
             // 
@@ -169,7 +178,7 @@
             this.btn_Maximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Maximize.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_Maximize.ForeColor = System.Drawing.Color.White;
-            this.btn_Maximize.Location = new System.Drawing.Point(394, 3);
+            this.btn_Maximize.Location = new System.Drawing.Point(392, 2);
             this.btn_Maximize.Name = "btn_Maximize";
             this.btn_Maximize.Size = new System.Drawing.Size(28, 27);
             this.btn_Maximize.TabIndex = 0;
@@ -186,7 +195,7 @@
             this.btn_Minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Minimize.Font = new System.Drawing.Font("Arial Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btn_Minimize.ForeColor = System.Drawing.Color.White;
-            this.btn_Minimize.Location = new System.Drawing.Point(428, 3);
+            this.btn_Minimize.Location = new System.Drawing.Point(426, 2);
             this.btn_Minimize.Name = "btn_Minimize";
             this.btn_Minimize.Size = new System.Drawing.Size(28, 27);
             this.btn_Minimize.TabIndex = 0;
@@ -273,7 +282,7 @@
             this.groupBox_Total.Size = new System.Drawing.Size(253, 45);
             this.groupBox_Total.TabIndex = 0;
             this.groupBox_Total.TabStop = false;
-            this.groupBox_Total.Text = "Total: ";
+            this.groupBox_Total.Text = "Total hrs: ";
             this.toolTip1.SetToolTip(this.groupBox_Total, "Working hours for today");
             // 
             // lblHrs
@@ -364,6 +373,11 @@
             this.Description.Name = "Description";
             this.Description.ToolTipText = "Description";
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -399,6 +413,7 @@
             this.groupBox_Total.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_History)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -431,5 +446,6 @@
         private ToolStripMenuItem hideToolStripMenuItem;
         private GroupBox groupBox_Total;
         private Label lblHrs;
+        private FileSystemWatcher fileSystemWatcher1;
     }
 }

@@ -12,7 +12,7 @@ namespace WorkTimeLogger.Constants
         public static int widthBig = 460;
         public static int heightBig = 200;
 
-        public static int widthSmall = 400;
+        public static int widthSmall = 460;
         public static int heightSmall = 30;
 
         public static string logsFolder = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Logs");

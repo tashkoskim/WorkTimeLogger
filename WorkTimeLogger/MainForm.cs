@@ -21,6 +21,11 @@ namespace WorkTimeLogger
 
         List<string> mostUsedPhrases = new List<string>();
 
+        private bool dragging;
+        private Point lastLocation;
+        int maxScreenX = Screen.PrimaryScreen.WorkingArea.Width;
+        int maxScreenY = Screen.PrimaryScreen.WorkingArea.Height;
+
         public MainForm()
         {
             InitializeComponent();
@@ -73,13 +78,22 @@ namespace WorkTimeLogger
         {
             comboBox1.Focus();
             comboBox1.Select();
-            if (isMaximized==false)
+            if (!isMaximized)
             {
                 this.Size = new Size(GeneralConstants.widthBig, GeneralConstants.heightBig);
-                RepositionTheForm();
+                //RepositionTheForm();
                 dataGridView_History.CurrentCell = null;
                 comboBox1.Select();
                 setTotalHrs();
+
+                
+                if(lastLocation.Y >= (maxScreenY-GeneralConstants.heightSmall))
+                {
+                    this.Location = new Point(lastLocation.X, (maxScreenY - GeneralConstants.heightBig));
+                }else if(lastLocation.X >= (maxScreenX-GeneralConstants.widthBig))
+                {
+                    this.Location = new Point((maxScreenX - GeneralConstants.widthBig), lastLocation.Y);
+                }
             }
         }
 
@@ -104,7 +118,7 @@ namespace WorkTimeLogger
             List<decimal> totalHrs = CsvFileCreator.GetTotalHrs();
             if(totalHrs.Count > 0)
             {
-                groupBox_Total.Text = $"Total: {totalHrs.Sum()}";
+                groupBox_Total.Text = $"Total hrs: {totalHrs.Sum()}";
                 lblHrs.Text = $"Coding: {totalHrs[0]}, Meeting: {totalHrs[1]}, Break: {totalHrs[2]}";
             }
         }
@@ -112,12 +126,13 @@ namespace WorkTimeLogger
         // When mouse leaves the form resize it back to the small header panel
         private void MainForm_MouseLeave(object sender, EventArgs e)
         {
-            if(isMaximized == false)
+            if (!isMaximized)
             {
                 if (!this.ClientRectangle.Contains(this.PointToClient(Control.MousePosition)))
                 {
                     this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
-                    RepositionTheForm();
+                    //RepositionTheForm();
+                    this.Location = lastLocation;
                 }
             }
         }
@@ -189,15 +204,17 @@ namespace WorkTimeLogger
             {
                 isMaximized = true;
                 this.Size = new Size(GeneralConstants.widthBig, GeneralConstants.heightBig);
-                RepositionTheForm();
+                //RepositionTheForm();
                 btn_Maximize.Text = "[ ]";
+                toolTip1.SetToolTip(btn_Maximize, "Minimize");
             }
             else
             {
                 isMaximized = false;
                 this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
-                RepositionTheForm();
+                //RepositionTheForm();
                 btn_Maximize.Text = "[]";
+                toolTip1.SetToolTip(btn_Maximize, "Maximize");
             }
             setTotalHrs();
         }
@@ -348,13 +365,6 @@ namespace WorkTimeLogger
             return true;
         }
 
-        // Reposition the form
-        private void RepositionTheForm()
-        {
-            int x = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
-            int y = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
-            this.Location = new Point(x, y);
-        }
 
         // Change the backgroung of the header panel, according the action: coding, meeting, break
         private void HeaderGradientBackground(string mode)
@@ -565,6 +575,77 @@ namespace WorkTimeLogger
             setTotalHrs();
         }
 
+        // Reposition the form
+        private void RepositionTheForm()
+        {
+            int x = Screen.PrimaryScreen.WorkingArea.Width - this.Width;
+            int y = Screen.PrimaryScreen.WorkingArea.Height - this.Height;
+            lastLocation = new Point(x, y);
+            this.Location = lastLocation;
+        }
+
+        // ----------------------------------------
+        private void panelHeader_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            lastLocation = e.Location;
+        }
+
+        private void panelHeader_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+
+                int pomWidth = 0;
+                int pomHeight = 0;
+
+                if(!isMaximized)
+                {
+                    pomWidth = GeneralConstants.widthSmall;
+                    pomHeight = GeneralConstants.heightSmall;
+                }else
+                {
+                    pomWidth = GeneralConstants.widthBig;
+                    pomHeight = GeneralConstants.heightBig;
+                }
+                // Get the screen's working area
+                Rectangle workingArea = Screen.GetWorkingArea(this);
+
+                // Calculate the bounds of the form
+                int formLeft = this.Location.X - lastLocation.X + e.X;
+                int formTop = this.Location.Y - lastLocation.Y + e.Y;
+                int formRight = formLeft + pomWidth;
+                int formBottom = formTop + pomHeight;
+
+                // Check if the form is within the screen's working area
+                if (formLeft < workingArea.Left)
+                {
+                    formLeft = workingArea.Left;
+                }
+                else if (formRight > workingArea.Right)
+                {
+                    formLeft = workingArea.Right - pomWidth;
+                }
+
+                if (formTop < workingArea.Top)
+                {
+                    formTop = workingArea.Top;
+                }
+                else if (formBottom > workingArea.Bottom)
+                {
+                    formTop = workingArea.Bottom - pomHeight;
+                }
+
+                // Set the new position of the form
+                this.Location = new Point(formLeft, formTop);
+            }
+        }
+
+        private void panelHeader_MouseUp(object sender, MouseEventArgs e)
+        {
+            lastLocation = this.Location;
+            dragging = false;
+        }
 
     }
 }
