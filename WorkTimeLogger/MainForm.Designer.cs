@@ -212,7 +212,7 @@
             this.btn_Meeting.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Meeting.FlatAppearance.BorderSize = 0;
             this.btn_Meeting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Meeting.Location = new System.Drawing.Point(91, 45);
+            this.btn_Meeting.Location = new System.Drawing.Point(88, 45);
             this.btn_Meeting.Name = "btn_Meeting";
             this.btn_Meeting.Size = new System.Drawing.Size(60, 60);
             this.btn_Meeting.TabIndex = 0;
@@ -230,7 +230,7 @@
             this.btn_Coding.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Coding.FlatAppearance.BorderSize = 0;
             this.btn_Coding.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Coding.Location = new System.Drawing.Point(10, 45);
+            this.btn_Coding.Location = new System.Drawing.Point(7, 45);
             this.btn_Coding.Name = "btn_Coding";
             this.btn_Coding.Size = new System.Drawing.Size(60, 60);
             this.btn_Coding.TabIndex = 0;
@@ -247,7 +247,7 @@
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox1.ForeColor = System.Drawing.Color.Navy;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(168, 90);
+            this.comboBox1.Location = new System.Drawing.Point(165, 90);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(254, 23);
             this.comboBox1.TabIndex = 1;
@@ -260,7 +260,7 @@
             this.btn_Break.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Break.FlatAppearance.BorderSize = 0;
             this.btn_Break.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Break.Location = new System.Drawing.Point(428, 38);
+            this.btn_Break.Location = new System.Drawing.Point(425, 38);
             this.btn_Break.Name = "btn_Break";
             this.btn_Break.Size = new System.Drawing.Size(25, 25);
             this.btn_Break.TabIndex = 0;
@@ -277,7 +277,7 @@
             this.groupBox_Total.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox_Total.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox_Total.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.groupBox_Total.Location = new System.Drawing.Point(169, 39);
+            this.groupBox_Total.Location = new System.Drawing.Point(166, 39);
             this.groupBox_Total.Name = "groupBox_Total";
             this.groupBox_Total.Size = new System.Drawing.Size(253, 45);
             this.groupBox_Total.TabIndex = 0;
@@ -327,7 +327,7 @@
             this.dataGridView_History.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView_History.EnableHeadersVisualStyles = false;
             this.dataGridView_History.GridColor = System.Drawing.SystemColors.InactiveCaption;
-            this.dataGridView_History.Location = new System.Drawing.Point(10, 120);
+            this.dataGridView_History.Location = new System.Drawing.Point(7, 120);
             this.dataGridView_History.Name = "dataGridView_History";
             this.dataGridView_History.RowHeadersVisible = false;
             this.dataGridView_History.RowTemplate.Height = 25;

@@ -149,6 +149,17 @@ namespace WorkTimeLogger
         // The menu strip buttons that are showing when the user click right mouse click on the icon
         private void showToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ShowTheApp();
+        }
+
+        // When you double click on the icon - show the app
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ShowTheApp();
+        }
+
+        private void ShowTheApp()
+        {
             if (WindowState == FormWindowState.Minimized)
             {
                 WindowState = FormWindowState.Normal;
@@ -157,6 +168,10 @@ namespace WorkTimeLogger
             BringToFront();
             Activate();
             this.Show();
+            if (isMaximized == true)
+            {
+                Minimize();
+            }
             setTotalHrs();
         }
 
@@ -166,27 +181,15 @@ namespace WorkTimeLogger
             Application.Exit();
         }
 
-        // When you double click on the icon - show the app
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                WindowState = FormWindowState.Normal;
-            }
-
-            BringToFront();
-            Activate();
-            this.Show();
-            setTotalHrs();
-        }
+        
 
         // Hide the form by clicking the '-' button
         private void btn_Minimize_Click(object sender, EventArgs e)
         {
             this.Hide();
-            isMaximized = false;
-            btn_Maximize.Text = "[]";
-            dataGridView_History.CurrentCell = null;
+            //isMaximized = false;
+            //btn_Maximize.Text = "[]";
+            //dataGridView_History.CurrentCell = null;
         }
 
         // Hide the form by clicking the menu strip button 'Hide'
@@ -220,15 +223,20 @@ namespace WorkTimeLogger
             }
             else
             {
-                isMaximized = false;
-                this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
-                dataGridView_History.Size = new Size(dataGridView_History.Width, 76);
-                //RepositionTheForm();
-                btn_Maximize.Text = "[]";
-                toolTip1.SetToolTip(btn_Maximize, "Maximize");
-                dataGridView_History.FirstDisplayedScrollingRowIndex = dataGridView_History.Rows.Count - 1;
+                Minimize();
             }
             setTotalHrs();
+        }
+        
+        private void Minimize()
+        {
+            isMaximized = false;
+            this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
+            dataGridView_History.Size = new Size(dataGridView_History.Width, 76);
+            //RepositionTheForm();
+            btn_Maximize.Text = "[]";
+            toolTip1.SetToolTip(btn_Maximize, "Maximize");
+            dataGridView_History.FirstDisplayedScrollingRowIndex = dataGridView_History.Rows.Count - 1;
         }
 
         // Calculate new bigger high of the form depending on the inserted rows
@@ -249,7 +257,7 @@ namespace WorkTimeLogger
         private int CalculateNewGridHeight(int rowCount, int formHeight)
         {
             int rowHeight = dataGridView_History.RowTemplate.Height;
-            int newHeight = formHeight - 130;
+            int newHeight = formHeight - 145;
 
             return newHeight;
         }
