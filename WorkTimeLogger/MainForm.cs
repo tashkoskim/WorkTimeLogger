@@ -203,20 +203,55 @@ namespace WorkTimeLogger
             if (isMaximized == false)
             {
                 isMaximized = true;
-                this.Size = new Size(GeneralConstants.widthBig, GeneralConstants.heightBig);
+                int rowCount = dataGridView_History.Rows.Count;
+                int newHeight = GeneralConstants.heightBig;
+                int newGridHeight = dataGridView_History.Height; 
+                if (rowCount > 3)
+                {
+                    newHeight = CalculateNewFormHeight(rowCount+1);
+                    newGridHeight = CalculateNewGridHeight(rowCount + 1, newHeight);
+                }
+                this.Size = new Size(GeneralConstants.widthBig, newHeight);
+                dataGridView_History.Size = new Size(dataGridView_History.Width, newGridHeight);
                 //RepositionTheForm();
                 btn_Maximize.Text = "[ ]";
                 toolTip1.SetToolTip(btn_Maximize, "Minimize");
+                
             }
             else
             {
                 isMaximized = false;
                 this.Size = new Size(GeneralConstants.widthSmall, GeneralConstants.heightSmall);
+                dataGridView_History.Size = new Size(dataGridView_History.Width, 76);
                 //RepositionTheForm();
                 btn_Maximize.Text = "[]";
                 toolTip1.SetToolTip(btn_Maximize, "Maximize");
+                dataGridView_History.FirstDisplayedScrollingRowIndex = dataGridView_History.Rows.Count - 1;
             }
             setTotalHrs();
+        }
+
+        // Calculate new bigger high of the form depending on the inserted rows
+        private int CalculateNewFormHeight(int rowCount)
+        {
+            int rowHeight = dataGridView_History.RowTemplate.Height;
+            int screenHight = Screen.PrimaryScreen.WorkingArea.Height-200;
+            int newHeight = (GeneralConstants.heightBig - (3*rowHeight)) + (rowCount * rowHeight);
+            if (newHeight > screenHight)
+            {
+                newHeight = screenHight;
+            }
+
+            return newHeight;
+        }
+
+        // Calculate new bigger high of the gridview depending on the inserted rows
+        private int CalculateNewGridHeight(int rowCount, int formHeight)
+        {
+            int rowHeight = dataGridView_History.RowTemplate.Height;
+            int newHeight = formHeight - 130;
+
+            return newHeight;
         }
 
         // Open the folder with all csv log files
