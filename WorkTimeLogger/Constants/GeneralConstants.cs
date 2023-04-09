@@ -24,6 +24,8 @@ namespace WorkTimeLogger.Constants
         public static string bckgrImg_btnCoding2 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Coding2.png";
         public static string bckgrImg_btnBreak1 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Pause1.png";
         public static string bckgrImg_btnBreak2 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Pause2.png";
+        public static string bckgrImg_btnReport1 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Excel1.png";
+        public static string bckgrImg_btnReport2 = $"{Path.GetDirectoryName(Application.ExecutablePath)}\\Images\\btn_Excel2.png";
 
         public static List<CsvRecord> listRecords = new List<CsvRecord>();
     }

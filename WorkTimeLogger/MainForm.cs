@@ -690,5 +690,10 @@ namespace WorkTimeLogger
             dragging = false;
         }
 
+        private void btn_ShowGraph_Click(object sender, EventArgs e)
+        {
+            LogDetailsForm frm = new LogDetailsForm();
+            frm.ShowDialog();
+        }
     }
 }

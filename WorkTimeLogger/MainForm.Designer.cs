@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,6 +51,7 @@
             this.btn_Break = new System.Windows.Forms.Button();
             this.groupBox_Total = new System.Windows.Forms.GroupBox();
             this.lblHrs = new System.Windows.Forms.Label();
+            this.btn_ShowGraph = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dataGridView_History = new System.Windows.Forms.DataGridView();
             this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -295,6 +296,24 @@
             this.lblHrs.TabIndex = 0;
             this.lblHrs.Text = "Coding: 0, Meeting: 0, Break: 0";
             // 
+            // btn_ShowGraph
+            // 
+            this.btn_ShowGraph.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_ShowGraph.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_ShowGraph.FlatAppearance.BorderSize = 0;
+            this.btn_ShowGraph.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ShowGraph.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_ShowGraph.ForeColor = System.Drawing.Color.Navy;
+            this.btn_ShowGraph.Location = new System.Drawing.Point(425, 80);
+            this.btn_ShowGraph.Name = "btn_ShowGraph";
+            this.btn_ShowGraph.Size = new System.Drawing.Size(25, 35);
+            this.btn_ShowGraph.TabIndex = 2;
+            this.btn_ShowGraph.TabStop = false;
+            this.btn_ShowGraph.Text = "📅";
+            this.toolTip1.SetToolTip(this.btn_ShowGraph, "History");
+            this.btn_ShowGraph.UseVisualStyleBackColor = true;
+            this.btn_ShowGraph.Click += new System.EventHandler(this.btn_ShowGraph_Click);
+            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -317,14 +336,14 @@
             this.EndTime,
             this.Activity,
             this.Description});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_History.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_History.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView_History.EnableHeadersVisualStyles = false;
             this.dataGridView_History.GridColor = System.Drawing.SystemColors.InactiveCaption;
             this.dataGridView_History.Location = new System.Drawing.Point(7, 120);
@@ -385,6 +404,7 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(460, 200);
             this.ControlBox = false;
+            this.Controls.Add(this.btn_ShowGraph);
             this.Controls.Add(this.groupBox_Total);
             this.Controls.Add(this.dataGridView_History);
             this.Controls.Add(this.btn_Break);
@@ -447,5 +467,6 @@
         private GroupBox groupBox_Total;
         private Label lblHrs;
         private FileSystemWatcher fileSystemWatcher1;
+        private Button btn_ShowGraph;
     }
 }

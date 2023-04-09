@@ -16,6 +16,7 @@ namespace WorkTimeLogger
             {
                 ApplicationConfiguration.Initialize();
                 Application.Run(new MainForm());
+                //Application.Run(new LogDetailsForm());
                 mutex.ReleaseMutex();
             }
             else
