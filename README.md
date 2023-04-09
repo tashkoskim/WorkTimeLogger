@@ -49,7 +49,7 @@ Screenshot of the application if the mouse cursor is over the header panel:
 Screenshot of context menu strip (if you right click with the mouse on the icon):  
 ![Menu](https://github.com/tashkoskim/WorkTimeLogger/blob/master/WorkTimeLogger/Screenshots/WorkTimeLogger_ContextMenuStrip_v2.JPG?raw=true)  
 
-Screenshot of the form where you can search every log and you can generate an excel report for a date period:  
+Screenshot of the form where you can search every log and you can generate an excel report for a selected period:  
 ![LogForm](https://github.com/tashkoskim/WorkTimeLogger/blob/master/WorkTimeLogger/Screenshots/WorkTimeLogger_LogHistory_v3.JPG?raw=true)  
 
 
