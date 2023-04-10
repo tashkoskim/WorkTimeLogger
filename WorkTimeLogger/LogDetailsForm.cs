@@ -24,7 +24,7 @@ namespace WorkTimeLogger
 
         private void LogDetailsForm_Load(object sender, EventArgs e)
         {
-            DateTime dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month-1, 1);
+            DateTime dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             datePicker_Begin.Value = dateFrom;
             DateTime dateTo = DateTime.Now.Date;
             datePicker_End.Value = dateTo;
