@@ -53,22 +53,28 @@
             // 
             this.datePicker_Begin.CalendarForeColor = System.Drawing.Color.Navy;
             this.datePicker_Begin.CalendarTitleForeColor = System.Drawing.Color.Navy;
+            this.datePicker_Begin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.datePicker_Begin.CustomFormat = "dd.MM.yyyy";
             this.datePicker_Begin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datePicker_Begin.Location = new System.Drawing.Point(25, 16);
+            this.datePicker_Begin.Location = new System.Drawing.Point(118, 16);
+            this.datePicker_Begin.MaxDate = new System.DateTime(2023, 4, 10, 0, 0, 0, 0);
             this.datePicker_Begin.Name = "datePicker_Begin";
             this.datePicker_Begin.Size = new System.Drawing.Size(83, 23);
             this.datePicker_Begin.TabIndex = 1;
+            this.datePicker_Begin.Value = new System.DateTime(2023, 4, 10, 0, 0, 0, 0);
             this.datePicker_Begin.ValueChanged += new System.EventHandler(this.datePicker_Begin_ValueChanged);
             // 
             // datePicker_End
             // 
+            this.datePicker_End.Cursor = System.Windows.Forms.Cursors.Hand;
             this.datePicker_End.CustomFormat = "dd.MM.yyyy";
             this.datePicker_End.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datePicker_End.Location = new System.Drawing.Point(132, 16);
+            this.datePicker_End.Location = new System.Drawing.Point(225, 16);
+            this.datePicker_End.MaxDate = new System.DateTime(2023, 4, 10, 0, 0, 0, 0);
             this.datePicker_End.Name = "datePicker_End";
             this.datePicker_End.Size = new System.Drawing.Size(83, 23);
             this.datePicker_End.TabIndex = 2;
+            this.datePicker_End.Value = new System.DateTime(2023, 4, 10, 0, 0, 0, 0);
             this.datePicker_End.ValueChanged += new System.EventHandler(this.datePicker_End_ValueChanged);
             // 
             // groupBox_Total
@@ -77,9 +83,9 @@
             this.groupBox_Total.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox_Total.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox_Total.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.groupBox_Total.Location = new System.Drawing.Point(221, 12);
+            this.groupBox_Total.Location = new System.Drawing.Point(1, 45);
             this.groupBox_Total.Name = "groupBox_Total";
-            this.groupBox_Total.Size = new System.Drawing.Size(302, 87);
+            this.groupBox_Total.Size = new System.Drawing.Size(460, 87);
             this.groupBox_Total.TabIndex = 0;
             this.groupBox_Total.TabStop = false;
             this.groupBox_Total.Text = "Total hrs: ";
@@ -94,7 +100,7 @@
             this.txtBox_Details.Name = "txtBox_Details";
             this.txtBox_Details.ReadOnly = true;
             this.txtBox_Details.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtBox_Details.Size = new System.Drawing.Size(290, 58);
+            this.txtBox_Details.Size = new System.Drawing.Size(444, 58);
             this.txtBox_Details.TabIndex = 0;
             this.txtBox_Details.TabStop = false;
             // 
@@ -102,7 +108,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(114, 22);
+            this.label1.Location = new System.Drawing.Point(207, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(12, 15);
             this.label1.TabIndex = 3;
@@ -115,7 +121,7 @@
             this.btn_Report.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_Report.FlatAppearance.BorderSize = 0;
             this.btn_Report.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Report.Location = new System.Drawing.Point(162, 47);
+            this.btn_Report.Location = new System.Drawing.Point(334, 9);
             this.btn_Report.Name = "btn_Report";
             this.btn_Report.Size = new System.Drawing.Size(36, 40);
             this.btn_Report.TabIndex = 3;
@@ -151,7 +157,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView_Logs.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView_Logs.GridColor = System.Drawing.SystemColors.InactiveCaption;
-            this.dataGridView_Logs.Location = new System.Drawing.Point(2, 105);
+            this.dataGridView_Logs.Location = new System.Drawing.Point(1, 151);
             this.dataGridView_Logs.Name = "dataGridView_Logs";
             this.dataGridView_Logs.RowHeadersVisible = false;
             this.dataGridView_Logs.RowTemplate.Height = 25;
@@ -159,9 +165,10 @@
             this.dataGridView_Logs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_Logs.ShowCellErrors = false;
             this.dataGridView_Logs.ShowRowErrors = false;
-            this.dataGridView_Logs.Size = new System.Drawing.Size(523, 177);
+            this.dataGridView_Logs.Size = new System.Drawing.Size(460, 177);
             this.dataGridView_Logs.TabIndex = 0;
             this.dataGridView_Logs.TabStop = false;
+            this.dataGridView_Logs.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_Logs_CellMouseEnter);
             // 
             // Date
             // 
@@ -199,6 +206,7 @@
             // 
             this.Total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Total.DefaultCellStyle = dataGridViewCellStyle1;
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
@@ -210,7 +218,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(526, 281);
+            this.ClientSize = new System.Drawing.Size(463, 326);
             this.Controls.Add(this.dataGridView_Logs);
             this.Controls.Add(this.btn_Report);
             this.Controls.Add(this.label1);

@@ -206,5 +206,48 @@ namespace WorkTimeLogger
         {
             return $"{timeSpan.Hours:00}:{timeSpan.Minutes:00}:{timeSpan.Seconds:00}";
         }
+
+        private void dataGridView_Logs_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && (e.ColumnIndex == 1 || e.ColumnIndex == 2))
+            {
+                decimal codingTime = 0m;
+                decimal meetingTime = 0m;
+
+                for (int i = 1; i <= 2; i++)
+                {
+                    
+                    if (i == 1) // Coding Time column
+                    {
+                        codingTime = ConvertTimeToDecimal(dataGridView_Logs.Rows[e.RowIndex].Cells[i].Value.ToString());
+                    }
+                    else if (i == 2) // Meeting Time column
+                    {
+                        meetingTime = ConvertTimeToDecimal(dataGridView_Logs.Rows[e.RowIndex].Cells[i].Value.ToString());
+                    }
+                    
+                }
+
+                string tooltipText = string.Format("Coding + meeting time = {0}", TimeSpan.FromHours((double)(codingTime + meetingTime)).ToString("hh\\:mm\\:ss"));
+                dataGridView_Logs.ShowCellToolTips = true;
+                dataGridView_Logs.Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = tooltipText;
+            }
+        }
+
+        private static decimal ConvertTimeToDecimal(string timeString)
+        {
+            // Split the time string into hours, minutes, and seconds
+            string[] timeParts = timeString.Split(':');
+
+            // Parse the parts to integers
+            int hours = int.Parse(timeParts[0]);
+            int minutes = int.Parse(timeParts[1]);
+            int seconds = int.Parse(timeParts[2]);
+
+            // Calculate the decimal value of the time
+            decimal decimalTime = hours + (minutes / 60m) + (seconds / 3600m);
+
+            return decimalTime;
+        }
     }
 }
