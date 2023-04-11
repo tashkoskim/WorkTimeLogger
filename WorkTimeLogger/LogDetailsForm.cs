@@ -13,6 +13,8 @@ namespace WorkTimeLogger
         public LogDetailsForm()
         {
             InitializeComponent();
+            datePicker_End.MaxDate = DateTime.Now.AddDays(1).Date;
+            datePicker_Begin.MaxDate = DateTime.Now.AddDays(1).Date;
             // Load default image
             defaultImage_Excel = Image.FromFile(GeneralConstants.bckgrImg_btnReport1);
             string hoverImageFilePath = Path.Combine(Path.GetDirectoryName(GeneralConstants.bckgrImg_btnReport1), GeneralConstants.bckgrImg_btnReport2);
@@ -26,7 +28,7 @@ namespace WorkTimeLogger
         {
             DateTime dateFrom = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             datePicker_Begin.Value = dateFrom;
-            DateTime dateTo = DateTime.Now.Date;
+            DateTime dateTo = DateTime.Now;
             datePicker_End.Value = dateTo;
             list = LogsHistory.ReadCSVFiles(dateFrom, dateTo);
             CalculateTotalHours(list);
