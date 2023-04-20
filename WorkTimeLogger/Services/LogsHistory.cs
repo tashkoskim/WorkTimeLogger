@@ -39,7 +39,7 @@ namespace WorkTimeLogger.Services
                     {
                         DateTime fileDate = getDateFromFile(csvFile);
 
-                        if (fileDate < startDate && fileDate > endDate)
+                        if (!(fileDate >= startDate && fileDate <= endDate))
                             continue;
 
                         using (var reader = new StreamReader(csvFile))

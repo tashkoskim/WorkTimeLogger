@@ -37,6 +37,7 @@ namespace WorkTimeLogger
 
         private void datePicker_Begin_ValueChanged(object sender, EventArgs e)
         {
+            list.Clear();
             DateTime dateFrom = datePicker_Begin.Value;
             DateTime dateTo = datePicker_End.Value;
             list = LogsHistory.ReadCSVFiles(dateFrom, dateTo);
@@ -46,6 +47,7 @@ namespace WorkTimeLogger
 
         private void datePicker_End_ValueChanged(object sender, EventArgs e)
         {
+            list.Clear();
             DateTime dateFrom = datePicker_Begin.Value;
             DateTime dateTo = datePicker_End.Value;
             list = LogsHistory.ReadCSVFiles(dateFrom, dateTo);
