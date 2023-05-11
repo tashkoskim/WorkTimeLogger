@@ -113,7 +113,7 @@ namespace WorkTimeLogger
                     }
                 }// END - foreach
 
-                groupBox_Total.Text = $"Total worked hrs: {totalHrs.Sum()} (Total days {noDays} * 8 hrs = {noDays*8} hrs expected)";
+                groupBox_Total.Text = $"Total hrs worked: {totalHrs.Sum()} (Total days {noDays} * 8 hrs = {noDays*8} hrs expected)";
                 txtBox_Details.Text = $"Coding: {totalHrs[0]}, Meeting: {totalHrs[1]}, Break: {totalHrs[2]}";
                 if(unfinishedRecords.Count > 0)
                 {
