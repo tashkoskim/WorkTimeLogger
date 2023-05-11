@@ -83,9 +83,9 @@
             this.groupBox_Total.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox_Total.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.groupBox_Total.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.groupBox_Total.Location = new System.Drawing.Point(1, 45);
+            this.groupBox_Total.Location = new System.Drawing.Point(1, 51);
             this.groupBox_Total.Name = "groupBox_Total";
-            this.groupBox_Total.Size = new System.Drawing.Size(460, 87);
+            this.groupBox_Total.Size = new System.Drawing.Size(460, 94);
             this.groupBox_Total.TabIndex = 0;
             this.groupBox_Total.TabStop = false;
             this.groupBox_Total.Text = "Total hrs: ";
