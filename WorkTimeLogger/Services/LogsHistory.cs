@@ -107,6 +107,8 @@ namespace WorkTimeLogger.Services
 
             string excelFile = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), $"WorkTimeLog_{Environment.UserName}.xlsx");
 
+            Process excelProcess = null;
+
             try
             {
                 excel = new Excel.Application();
@@ -172,7 +174,7 @@ namespace WorkTimeLogger.Services
                 if (errorCatch == false)
                 {
                     // Open the Excel file using the default program for Excel files
-                    Process.Start(new ProcessStartInfo(excelFile) { UseShellExecute = true });
+                    excelProcess = Process.Start(new ProcessStartInfo(excelFile) { UseShellExecute = true });
                 }
 
                 // Quit the Excel application and release its resources
@@ -182,6 +184,19 @@ namespace WorkTimeLogger.Services
                     Marshal.ReleaseComObject(excel);
                     excel = null;
                 }
+
+                WaitForExcelProcessToExit(excelProcess);
+            }
+        }
+
+
+        private static void WaitForExcelProcessToExit(Process excelProcess)
+        {
+            if (excelProcess != null)
+            {
+                excelProcess.WaitForExit();
+                excelProcess.Close();
+                excelProcess.Dispose();
             }
         }
 

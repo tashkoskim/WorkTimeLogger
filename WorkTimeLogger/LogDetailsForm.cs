@@ -84,10 +84,13 @@ namespace WorkTimeLogger
             List<decimal> totalHrs = new List<decimal> { 0.0m, 0.0m, 0.0m };
             List<string> unfinishedRecords = new List<string>();
 
+            int noDays = l.Select(record => record.Date).Distinct().Count();
+
             if (l != null)
             {
                 foreach (CsvRecord r in l)
                 {
+
                     if (r.EndTime != "-")
                     {
                         if (r.Activity == "Coding")
@@ -110,7 +113,7 @@ namespace WorkTimeLogger
                     }
                 }// END - foreach
 
-                groupBox_Total.Text = $"Total hrs: {totalHrs.Sum()}";
+                groupBox_Total.Text = $"Total worked hrs: {totalHrs.Sum()} (Total days {noDays} * 8 hrs = {noDays*8} hrs expected)";
                 txtBox_Details.Text = $"Coding: {totalHrs[0]}, Meeting: {totalHrs[1]}, Break: {totalHrs[2]}";
                 if(unfinishedRecords.Count > 0)
                 {
